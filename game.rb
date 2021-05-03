@@ -28,6 +28,7 @@ class Scores
       self.scores[1] -= 1
     end
   end
+
 end
 
 class Quiz
@@ -43,7 +44,7 @@ class Quiz
     num2 = rand(1..20)
     answer = num1 + num2
     turn = Whos_turn.new(self.quiz_num)
-    puts "Q. what does #{num1} plus #{num2} ? \n #{turn.turn}:"
+    puts "(#{turn.turn})Q. what does #{num1} plus #{num2} ?"
     userinput = $stdin.gets.chomp;
 
     update = Scores.new(self.quiz_num, self.scores)
@@ -56,9 +57,20 @@ class Quiz
       puts "Wrong answer"
       update.print
     end
-    
+
     self.quiz_num += 1
-    self.question
+    self.check_end
+    
+  end
+
+  def check_end
+    if self.scores[0] == 0 
+      puts "Game end : Winner - Player2!"
+    elsif self.scores[1] == 0
+      puts "Game end : Winner - Player1!"
+    else
+      self.question
+    end
   end
 
 end
