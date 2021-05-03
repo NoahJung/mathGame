@@ -17,13 +17,16 @@ class Scores
     @scores = score
   end
 
+  def print
+    puts "score_ Player1: #{self.scores[0]}/3, Player2: #{self.scores[1]}/3"
+  end
+
   def score_lose
     if quiz_num % 2 == 1
       self.scores[0] -= 1
     else 
       self.scores[1] -= 1
     end
-
   end
 end
 
@@ -42,16 +45,18 @@ class Quiz
     turn = Whos_turn.new(self.quiz_num)
     puts "Q. what does #{num1} plus #{num2} ? \n #{turn.turn}:"
     userinput = $stdin.gets.chomp;
+
+    update = Scores.new(self.quiz_num, self.scores)
     
     if userinput.to_i == answer
       puts "Correct answer!"
-      puts "score_ Player1: #{self.scores[0]}/3, Player2: #{self.scores[1]}/3"
+      update.print
     else
-      update = Scores.new(self.quiz_num, self.scores)
       update.score_lose
       puts "Wrong answer"
-      puts "score_ Player1: #{self.scores[0]}/3, Player2: #{self.scores[1]}/3"
+      update.print
     end
+    
     self.quiz_num += 1
     self.question
   end
