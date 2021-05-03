@@ -1,4 +1,4 @@
 require "./game"
 
-start = Quiz.new
-start.question
+start = New_game.new
+start.start
