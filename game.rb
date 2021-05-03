@@ -7,30 +7,6 @@
 # The game doesn’t end until one of the players loses all their lives. 
 # The game should announce who won and what the other player’s score is.
 
-
-# store each player's score
-class Scores
-   attr_accessor :quiz_num, :scores
-
-  def initialize (num, score)
-    @quiz_num = num
-    @scores = score
-  end
-
-  def print
-    puts "score_ Player1: #{self.scores[0]}/3, Player2: #{self.scores[1]}/3"
-  end
-
-  def score_lose
-    if quiz_num % 2 == 1
-      self.scores[0] -= 1
-    else 
-      self.scores[1] -= 1
-    end
-  end
-
-end
-
 class Quiz
   attr_accessor :quiz_num, :scores
 
@@ -71,37 +47,6 @@ class Quiz
     else
       self.question
     end
-  end
-
-end
-
-class Whos_turn
-  attr_accessor :quiz_num
-  def initialize (num)
-    @quiz_num = num
-  end
-
-  def turn 
-    if quiz_num % 2 == 1
-      return "player1"
-    else
-      return "player2"
-    end
-  end
-end
-
-class New_game
-
-  attr_accessor :quiz_num, :scores, :quiz
-
-  def initialize
-    @quiz_num = 1
-    @scores = [ 3, 3 ]
-    @quiz = Quiz.new(self.quiz_num, self.scores)
-  end
-
-  def start
-    self.quiz.question
   end
 
 end
