@@ -9,27 +9,23 @@
 
 
 # store each player's score
-# class Scores
-#    attr_accessor :quiz_num, :score
+class Scores
+   attr_accessor :quiz_num, :scores
 
-#   def initialize (quiz_num)
-#     @quiz_num = quiz_num
-#     @score = score
-#   end
+  def initialize (num, score)
+    @quiz_num = num
+    @scores = score
+  end
 
-#   def reset
-#     score = [ 3, 3 ]
-#   end
+  def score_lose
+    if quiz_num % 2 == 1
+      self.scores[0] -= 1
+    else 
+      self.scores[1] -= 1
+    end
 
-#   def score_lose
-#     if quiz_num % 2 == 1
-#       score[0] -= 1
-#     else 
-#       score[1] -= 1
-#     end
-
-#   end
-# end
+  end
+end
 
 class Quiz
   attr_accessor :quiz_num, :scores
@@ -43,12 +39,16 @@ class Quiz
     num1 = rand(1..20)
     num2 = rand(1..20)
     answer = num1 + num2
-    puts "for player: what does #{num1} plus #{num2} ?"
+    turn = Whos_turn.new(self.quiz_num)
+    puts "Q. what does #{num1} plus #{num2} ? \n #{turn.turn}:"
     userinput = $stdin.gets.chomp;
+    
     if userinput.to_i == answer
       puts "Correct answer!"
       puts "score_ Player1: #{self.scores[0]}/3, Player2: #{self.scores[1]}/3"
     else
+      update = Scores.new(self.quiz_num, self.scores)
+      update.score_lose
       puts "Wrong answer"
       puts "score_ Player1: #{self.scores[0]}/3, Player2: #{self.scores[1]}/3"
     end
@@ -58,6 +58,20 @@ class Quiz
 
 end
 
+class Whos_turn
+  attr_accessor :quiz_num
+  def initialize (num)
+    @quiz_num = num
+  end
+
+  def turn 
+    if quiz_num % 2 == 1
+      return "player1"
+    else
+      return "player2"
+    end
+  end
+end
 
 class New_game
 
